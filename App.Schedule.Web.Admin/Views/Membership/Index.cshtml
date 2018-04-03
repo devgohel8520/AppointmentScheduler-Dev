@@ -1,0 +1,137 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using App.Schedule.Domains.ViewModel;
+@model ServiceDataViewModel<IPagedList<MembershipViewModel>>
+
+@{
+    ViewBag.Title = "Membership";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Membership</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        @Html.Partial("~/Views/SubViews/_Error.cshtml", Model)
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-book fa-fw"></i> Membership List
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <a onclick="@("window.location.href='" + @Url.Action("Create") + "'");" class="btn btn-info btn-xs">
+                            <span class="fa fa-plus"></span> Add New
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                @if (Model.Data == null)
+                {
+                    <div class="alert alert-danger">No records! Click to add new <a href="#" class="pull-right">+ Add</a></div>
+                }
+                else
+                {
+                    <div class="form-group input-group input-group-sm">
+                        <input type="text" class="form-control" id="searchKeyword" value="@ViewBag.search" placeholder="Search here" />
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Index")?search=' + $('#searchKeyword').val()">
+                                <i class="fa fa-search"></i>
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-striped table-hover sortable" cellspacing="0" cellpadding="0">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Title
+                                    </th>
+                                    <th>
+                                        Price
+                                    </th>
+                                    <th style="width:500px;">
+                                        Total
+                                    </th>
+                                    <th>
+                                        IsUnlimited
+                                    </th>
+                                    <th>
+                                        Status
+                                    </th>
+                                    <th class="text-right">
+                                        Action
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Data)
+                                {
+                                    <tr>
+                                        @Html.HiddenFor(modelItem => item.Id)
+                                        <td class="row-bg">
+                                            @Html.DisplayFor(modelItem => item.Title)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Price)
+                                        </td>
+                                        <td>
+                                            <div>
+                                                Total Allowed
+                                            </div>
+                                            @*<div class="col-md-12 bg-gray">
+                                                Employees: @Html.DisplayFor(modelItem => item.TotalEmployee)
+                                            </div>
+                                            <div class="col-md-12 bg-gray">
+                                                Locations: @Html.DisplayFor(modelItem => item.TotalLocation)
+                                            </div>
+                                            <div class="col-md-12 bg-gray">
+                                                Offers: @Html.DisplayFor(modelItem => item.TotalOffers)
+                                            </div>
+                                            <div class="col-md-12 bg-gray">
+                                                Customers: @Html.DisplayFor(modelItem => item.TotalCustomer)
+                                            </div>
+                                            <div class="col-md-12 bg-gray">
+                                                Appointments: @Html.DisplayFor(modelItem => item.TotalAppointment)
+                                            </div>*@
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.IsUnlimited)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.IsActive)
+                                        </td>
+                                        <td class="text-right">
+                                            <a title="Update" onclick="@("window.location.href='" + @Url.Action("Edit", new { Id = item.Id }) + "'");" class="btn btn-default btn-xs">
+                                                <span class="fa fa-pencil"></span>
+                                            </a>
+                                            <a title="Change Status" onclick="@("window.location.href='" + @Url.Action("Deactive",new { Id = item.Id }) + "'");" class="btn btn-xs btn-default">
+                                                <span class="fa fa-minus-square"></span>
+                                            </a>
+                                            <a title="Delete" onclick="@("window.location.href='" + @Url.Action("Delete",new { Id = item.Id }) + "'");" class="btn btn-xs btn-default">
+                                                <span class="fa fa-trash"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr />
+                    <div>
+                        <span class="pull-right">
+                            @Html.PagedListPager(Model.Data, page => Url.Action("Index", new { page }))
+                        </span>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,96 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+<div class="row">
+    <div class="jumbotron">
+        <div class="container">
+            <h2>Are you looking for scheduling appointments online?</h2>
+            <p>
+                You already have all necessary equipment to schedule appointments online — you have a web browser. The rest is just a click away. On your computer screen, on your tablet, on your phone — anywhere!
+            </p>
+            <p>
+                <b>Ap</b> Online Appointment Scheduler is the most reliable online appointment scheduling software available today. Bug-free apps, protected data, maximum uptime — that's Ap promise. Ap enables you to manage your customers, personnel, schedules, appointment calendars — all in one place, from any place.
+            </p>
+            <p class="center-align" style="padding-top:20px;">
+                <a class="btn btn-default" href="@Url.Action("Register","Home", new { isFree = "yes" })" role="button">
+                    Register for free for 30 days trial.
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+<div class="container" style="padding-top:20px;">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h2 style="padding:20px;">I am?</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-user fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">Admin</div>
+                            <div>Business Admin</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="@Url.Action("Login","Home", new { area = "Admin" })">
+                    <div class="panel-footer">
+                        <span class="pull-left">Login</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-user fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">Employee</div>
+                            <div>Business Employee</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="@Url.Action("Login","Home", new { area = "Employee" })">
+                    <div class="panel-footer">
+                        <span class="pull-left">Login</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-user fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">Customer</div>
+                            <div>Business Customer</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="@Url.Action("Login","Home", new { area = "Customer" })">
+                    <div class="panel-footer">
+                        <span class="pull-left">Login</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

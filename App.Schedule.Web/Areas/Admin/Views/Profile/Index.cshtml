@@ -1,0 +1,110 @@
+﻿@using App.Schedule.Domains.ViewModel;
+@model ResponseViewModel<BusinessViewModel>
+
+@{
+    ViewBag.Title = "Update Account Profile";
+    Layout = "~/Views/Shared/_AfterLoginMaster.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Profile Setup</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        @Html.Partial("~/Views/SubViews/_ErrorView.cshtml", Model)
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <b>Profile Information</b>
+            </div>
+            @using (Ajax.BeginForm("index", "profile", new AjaxOptions { }))
+            {
+            <div class="panel-body">
+                @if (Model == null & Model.Data == null)
+                {
+                    <text>Please try again later.</text>
+                    return;
+                }
+                <div class="tab-pane">
+                    <div class="row">
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(d => d.Data.Id)
+                        @Html.HiddenFor(d => d.Data.MembershipId)
+                        <div class="form-group col-lg-6">
+                            <label>Category</label>
+                            @Html.DropDownListFor(d => d.Data.BusinessCategoryId, new SelectList(ViewBag.BusinessCategoryId, "Value", "Text", "Group.Name", -1), "-- Select Category --", new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label>Business Name</label>
+                            @Html.EditorFor(model => model.Data.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Business Name" } })
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label>Short Name</label>
+                            @Html.EditorFor(model => model.Data.ShortName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Short Name" } })
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label>Phone No.</label>
+                            @Html.EditorFor(model => model.Data.PhoneNumbers, new { htmlAttributes = new { @class = "form-control", @placeholder = "Phone No." } })
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label>Fax No.</label>
+                            @Html.EditorFor(model => model.Data.FaxNumbers, new { htmlAttributes = new { @class = "form-control", @placeholder = "Fax No." } })
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label>Email</label>
+                            @Html.EditorFor(model => model.Data.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Business Email" } })
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label>Website</label>
+                            @Html.EditorFor(model => model.Data.Website, new { htmlAttributes = new { @class = "form-control", @placeholder = "Business Website" } })
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label>Address 1</label>
+                            @Html.EditorFor(model => model.Data.Add1, new { htmlAttributes = new { @class = "form-control", @placeholder = "Address 1" } })
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label>Address 2</label>
+                            @Html.EditorFor(model => model.Data.Add2, new { htmlAttributes = new { @class = "form-control", @placeholder = "Address 2" } })
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label>City</label>
+                            @Html.EditorFor(model => model.Data.City, new { htmlAttributes = new { @class = "form-control", @placeholder = "City" } })
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label>State</label>
+                            @Html.EditorFor(model => model.Data.State, new { htmlAttributes = new { @class = "form-control", @placeholder = "State" } })
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label>Zip</label>
+                            @Html.EditorFor(model => model.Data.Zip, new { htmlAttributes = new { @class = "form-control", @placeholder = "Zip Code" } })
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label>Country</label>
+                            @Html.DropDownListFor(d => d.Data.CountryId, new SelectList(ViewBag.CountryId ?? null, "Value", "Text"), "-- Select Country --", new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label>Timezone</label>
+                            @Html.DropDownListFor(d => d.Data.TimezoneId, new SelectList(ViewBag.TimezoneId, "Value", "Text"), "-- Select Timezone --", new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-lg-6">
+                            @Html.CheckBoxFor(model => model.Data.IsInternational, new { htmlAttributes = new { @type = "checkbox" } }) Is International? <small>(If it is using internation timezone)</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <input id="btnUpdate" class="btn btn-info btn-sm " type="button" value="Update" onclick="onSubmit(this,'@Url.Action("index","account", new { area = "admin" })')" />
+                        <input type="button" class="btn btn-default btn-sm" value="Back" onclick="@("window.location.href='" + @Url.Action("index","accountsetup",new { area="admin"}) + "'");" />
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+﻿@using App.Schedule.Domains.ViewModel;
+@model ServiceDataViewModel<MembershipViewModel> 
+@{
+    ViewBag.Title = "Edit Membership";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Membership</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        @Html.Partial("~/Views/SubViews/_Error.cshtml", Model)
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        @using (Ajax.BeginForm("Edit", new AjaxOptions { }))
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-book fa-fw"></i> Update Membership
+                </div>
+                <div class="panel-body">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Data.Id)
+                    <div class="form-group col-lg-6">
+                        <label>Title</label>
+                        @Html.EditorFor(model => model.Data.Title, new { htmlAttributes = new { @class = "form-control", placeholder = "Title" } })
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Membership Price</label>
+                        @Html.EditorFor(model => model.Data.Price, new { htmlAttributes = new { @class = "form-control", placeholder = "Price" } })
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Total Customer Allowed</label>
+                        @Html.EditorFor(model => model.Data.TotalCustomer, new { htmlAttributes = new { @class = "form-control", placeholder = "Allowed Customers" } })
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Total Employee</label>
+                        @Html.EditorFor(model => model.Data.TotalEmployee, new { htmlAttributes = new { @class = "form-control", placeholder = "Allowed Employees" } })
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Total Location</label>
+                        @Html.EditorFor(model => model.Data.TotalLocation, new { htmlAttributes = new { @class = "form-control", placeholder = "Allowed Locations" } })
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Total Offers</label>
+                        @Html.EditorFor(model => model.Data.TotalOffers, new { htmlAttributes = new { @class = "form-control", placeholder = "Allowed Offers" } })
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Benifits</label>
+                        @Html.EditorFor(model => model.Data.Benifits, new { htmlAttributes = new { @class = "form-control", placeholder = "Benifits" } })
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Description</label>
+                        @Html.EditorFor(model => model.Data.Description, new { htmlAttributes = new { @class = "form-control", placeholder = "Description" } })
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>
+                            @Html.CheckBoxFor(model => model.Data.IsUnlimited, new { htmlAttributes = new { @class = "form-control" } })
+                            is Unlimited?
+                        </label>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>
+                            @Html.CheckBoxFor(model => model.Data.IsActive, new { htmlAttributes = new { @class = "form-control" } })
+                            is Active?
+                        </label>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-12">
+                                <input id="btnUpdate" class="btn btn-info btn-sm " type="button" value="Update" onclick="onSubmit(this,'@Url.Action("Index", "Membership")');" />
+                                <input type="button" class="btn btn-default btn-sm" value="Back" onclick="@("window.location.href='" + @Url.Action("Index", "Membership") + "'");" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

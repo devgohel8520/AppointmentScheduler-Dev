@@ -1,0 +1,113 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using App.Schedule.Domains.ViewModel;
+@model ResponseViewModel<IPagedList<BusinessOfferServiceLocationViewModel>>
+@{
+    ViewBag.Title = "Offer Location";
+    Layout = "~/Views/Shared/_AfterLoginMaster.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Offer Location Setup</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        @Html.Partial("~/Views/SubViews/_ErrorView.cshtml", Model)
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="@Url.Action("location","businessoffer",new { area = "admin", id = ViewBag.Id})">Service Location</a></li>
+        </ul>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <b>Service Location List</b>
+                <a href="@Url.Action("addlocation", "businessoffer", new { area = "admin", id = ViewBag.Id })" class="btn btn-info btn-xs pull-right">
+                    <span class="glyphicon glyphicon-plus"></span> Add
+                </a>
+            </div>
+            <div class="panel-body">
+                @if (Model == null || Model.Data == null)
+                {
+                    <text>No records. You can add location to the offer on click of +Add button top right.</text>
+                  <hr />
+                  <div class="row">
+                      <div class="col-lg-12">
+                          <a href="@Url.Action("index", "businessoffer", new { area = "admin" })" class="btn btn-default btn-sm">
+                              <span class="fa fa-arrow-left"></span> Back
+                          </a>
+                      </div>
+                  </div>
+                    return;
+                }
+                <div class="tab-content">
+                    <div class="tab-pane active">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="form-group input-group input-group-sm">
+                                    <input type="text" class="form-control" id="searchKeyword" value="@ViewBag.search" placeholder="Search here" />
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("location")?search=' + $('#searchKeyword').val()">
+                                            <i class="glyphicon glyphicon-search"></i>
+                                            Search
+                                        </button>
+                                    </div>
+                                </div>
+                                <table class="table table-condensed table-striped table-hover sortable" cellspacing="0" cellpadding="0">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-lg-10">
+                                                Title
+                                            </th>
+                                            <th class="col-lg-2 text-right">
+                                                Action
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.Data)
+                                        {
+                                            if (item != null)
+                                            {
+                                                <tr>
+                                                    <td style="vertical-align:top;">
+                                                        <b>@item.ServiceLocationViewModel.Name</b>
+                                                        <p>
+                                                            @item.ServiceLocationViewModel.Description
+                                                        </p>
+                                                        <p>
+                                                            @item.ServiceLocationViewModel.Add1, @item.ServiceLocationViewModel.Add2, @item.ServiceLocationViewModel.City, @item.ServiceLocationViewModel.State - @item.ServiceLocationViewModel.Zip.
+                                                        </p>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <a title="Delete" onclick="@("window.location.href='" + @Url.Action("deletelocation", "businessoffer", new { area = "admin", id = item.Id }) + "'");" class="btn btn-default btn-xs">
+                                                            <span class="fa fa-trash"></span>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div>
+                    <span class="text-left">
+                        <a href="@Url.Action("index", "businessoffer", new { area = "admin" })" class="btn btn-default btn-sm">
+                            Back To Business Offers
+                        </a>
+                    </span>
+                    <span class="pull-right">
+                        @Html.PagedListPager(Model.Data, page => Url.Action("Index", new { page }))
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

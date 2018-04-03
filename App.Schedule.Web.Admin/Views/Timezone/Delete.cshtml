@@ -1,0 +1,72 @@
+﻿@using App.Schedule.Domains.ViewModel;
+@model ServiceDataViewModel<TimezoneViewModel>
+@{
+    ViewBag.Title = "Delete Timezone";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Timezone</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        @Html.Partial("~/Views/SubViews/_Error.cshtml", Model)
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        @using (Ajax.BeginForm("Delete", new AjaxOptions { }))
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-clock-o fa-fw"></i> Delete Timezone
+                </div>
+                <div class="panel-body">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Data.Id)
+                    <div class="col-lg-12">
+                        <div class="text-danger">
+                            Are you sure want to remove?
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Title</label>
+                        <div class="form-control">
+                            @Model.Data.Title
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>UTC Offset</label>
+                        <div class="form-control">
+                            @Model.Data.UtcOffset
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Country</label>
+                        <div class="form-control">
+                            @Model.Data.CountryId
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <label>
+                            @Html.CheckBoxFor(model => model.Data.IsDST, new { htmlAttributes = new { @class = "form-control" } })
+                            Has DST?
+                        </label>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-12">
+                                <input id="btnDelete" class="btn btn-danger btn-sm " type="button" value="Delete" onclick="onSubmit(this,'@Url.Action("Index", "Timezone")');" />
+                                <input type="button" class="btn btn-default btn-sm" value="Back" onclick="@("window.location.href='" + @Url.Action("Index", "Timezone") + "'");" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

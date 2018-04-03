@@ -1,0 +1,107 @@
+﻿@using App.Schedule.Domains.ViewModel;
+@model ResponseViewModel<List<BusinessHolidayViewModel>>
+
+@{
+    ViewBag.Title = "Business Holiday Setup";
+    Layout = "~/Views/Shared/_AfterLoginMaster.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Service Location Holiday Setup</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        @Html.Partial("~/Views/SubViews/_ErrorView.cshtml", Model)
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <ul class="nav nav-tabs">
+            <li><a href="@Url.Action("location","servicelocation",new { area = "admin", id = ViewBag.Id})">Location</a></li>
+            <li><a href="@Url.Action("hour","servicelocation",new { area = "admin", id = ViewBag.Id})">Business Hours</a></li>
+            <li class="active"><a href="@Url.Action("holiday","servicelocation",new { area = "admin", id = ViewBag.Id})">Business Holiday</a></li>
+        </ul>
+        <div class="panel panel-default" style="border-top:0;">
+            <div style="padding:10px;">
+                <a href="@Url.Action("add", "holiday", new { area = "admin" })" class="btn btn-info btn-xs pull-right">
+                    <span class="glyphicon glyphicon-plus"></span> Add
+                </a>
+            </div>
+            <div class="panel-body">
+                @if (Model == null & Model.Data == null)
+                {
+                    <text>Please try again later.</text>
+                    return;
+                }
+                <div class="tab-content">
+                    <div class="tab-pane active">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Holiday
+                                            </th>
+                                            <th class="text-right">
+                                                Action
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.Data)
+                                        {
+                                            if (item == null)
+                                            {
+                                                return;
+                                            }
+                                            <tr>
+                                                <td class="text-left">
+                                                    @{
+                                                        if (item.Type == (int)HolidayType.Specified)
+                                                        {
+                                                            <text>On </text> @item.OnDate.ToString("MMMM dd, yyyy (dddd)");
+                                                        }
+                                                        else if (item.Type == (int)HolidayType.RpeatEveryWeek)
+                                                        {
+                                                            <text>Every </text> @item.OnDate.ToString("dd"); <text> day of the month since </text>  @item.OnDate.ToString("MMMM yyyy");
+                                                        }
+                                                        else if (item.Type == (int)HolidayType.RepeatEveryMonth)
+                                                        {
+                                                            <text>Every </text> @item.OnDate.ToString("dddd"); <text> since </text>  @item.OnDate.ToString("MMMM dd, yyyy");
+                                                        }
+                                                        else if (item.Type == (int)HolidayType.RepeatEveryYear)
+                                                        {
+                                                            <text>On </text> @item.OnDate.ToString("MMMM dd"); <text> every year since </text>  @item.OnDate.ToString("yyyy");
+                                                        }
+                                                    }
+                                                </td>
+                                                <td class="text-right">
+                                                    <a title="Update" onclick="@("window.location.href='" + @Url.Action("edit", "holiday", new { area = "admin", id = item.Id }) + "'");" class="btn btn-default btn-xs">
+                                                        <span class="fa fa-pencil"></span>
+                                                    </a>
+                                                    <a title="Update" onclick="@("window.location.href='" + @Url.Action("delete", "holiday", new { area = "admin", id = item.Id }) + "'");" class="btn btn-default btn-xs">
+                                                        <span class="fa fa-trash"></span>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <input type="button" class="btn btn-default btn-sm" value="Back" onclick="@("window.location.href='" + @Url.Action("index","servicelocation",new { area="admin"}) + "'");" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

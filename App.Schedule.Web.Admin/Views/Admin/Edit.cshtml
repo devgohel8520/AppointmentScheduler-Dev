@@ -1,0 +1,79 @@
+﻿@using App.Schedule.Domains.ViewModel;
+@model ServiceDataViewModel<AdministratorViewModel>
+@{
+    ViewBag.Title = "Change Admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Admins</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        @Html.Partial("~/Views/SubViews/_Error.cshtml", Model)
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        @using (Ajax.BeginForm("Edit", new AjaxOptions { }))
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-users fa-fw"></i> Update Admin
+                </div>
+                <div class="panel-body">
+
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Data.Id)
+                    @Html.HiddenFor(model => model.Data.AdministratorId)
+                    @Html.HiddenFor(mode => Model.Data.IsActive)
+                    <div class="form-group col-lg-6">
+                        <label>FirstName</label>
+                        @Html.EditorFor(model => model.Data.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "First Name" } })
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Last Name</label>
+                        @Html.EditorFor(model => model.Data.LastName, new { htmlAttributes = new { @class = "form-control", placeholder = "Last Name" } })
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Contact Number</label>
+                        @Html.EditorFor(model => model.Data.ContactNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Contact Number" } })
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Email</label>
+                        @Html.EditorFor(model => model.Data.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Email", @readonly = true } })
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Password</label>
+                        @Html.EditorFor(model => model.Data.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password", @type = "Password" } })
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Confirm Password</label>
+                        @Html.EditorFor(model => model.Data.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", placeholder = "Confirm Password", @type = "Password" } })
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Old Password</label>
+                        @Html.EditorFor(model => model.Data.OldPassword, new { htmlAttributes = new { @class = "form-control", placeholder = "Old Password", @type = "Password" } })
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <label>
+                            @Html.CheckBoxFor(model => model.Data.IsAdmin, new { htmlAttributes = new { @class = "form-control" } })
+                            is Admin?
+                        </label>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-12">
+                                <input id="btnSave" class="btn btn-info btn-sm" type="button" value="Update" onclick="onSubmit(this,'@Url.Action("Index", "Admin")');" />
+                                <input type="button" class="btn btn-default btn-sm" value="Back" onclick="@("window.location.href='" + @Url.Action("Index", "Admin") + "'");" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

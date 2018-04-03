@@ -1,0 +1,243 @@
+﻿@using App.Schedule.Domains.ViewModel;
+@model  ResponseViewModel<RegisterViewModel>
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_NotAuthLayout.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12">
+        @Html.Partial("~/Views/SubViews/_Error.cshtml", Model)
+    </div>
+</div>
+<div class="container">
+    @using (Ajax.BeginForm("Register", new AjaxOptions { }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="panel panel-default" style="margin-top:40px;">
+            <div class="panel-heading">
+                <h3 class="panel-title">Register</h3>
+            </div>
+            <div class="panel-body">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-success active" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div class="step" style="border:0;">
+                    <div class="row">
+                        <div class="col-lg-12 text-left">
+                            <h3 class="white-text">Business Information</h3>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-asterisk"></i></span>
+                                @Html.EditorFor(d => d.Data.Business.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Business Name" } })
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-asterisk"></i></span>
+                                @Html.EditorFor(d => d.Data.Business.ShortName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Short Name" } })
+                            </div>
+
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+                                @Html.EditorFor(d => d.Data.Business.PhoneNumbers, new { htmlAttributes = new { @class = "form-control", @placeholder = "Phone No." } })
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-print"></i></span>
+                                @Html.EditorFor(d => d.Data.Business.FaxNumbers, new { htmlAttributes = new { @class = "form-control", @placeholder = "Fax No." } })
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-asterisk"></i></span>
+                                @Html.EditorFor(d => d.Data.Business.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Business Email" } })
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                                @Html.EditorFor(d => d.Data.Business.Website, new { htmlAttributes = new { @class = "form-control", @placeholder = "Business Website" } })
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>
+                                @Html.TextAreaFor(d => d.Data.Business.Add1, new { @class = "form-control", @rows = "1", @placeholder = "Address 1" })
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>
+                                @Html.TextAreaFor(d => d.Data.Business.Add2, new { @class = "form-control", @rows = "1", @placeholder = "Address 2" })
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-12">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>
+                                @Html.EditorFor(d => d.Data.Business.City, new { htmlAttributes = new { @class = "form-control", @placeholder = "City" } })
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-12">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>
+                                @Html.EditorFor(d => d.Data.Business.State, new { htmlAttributes = new { @class = "form-control", @placeholder = "State" } })
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-12">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>
+                                @Html.EditorFor(d => d.Data.Business.Zip, new { htmlAttributes = new { @class = "form-control", @placeholder = "Zip Code" } })
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-12">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>
+                                @Html.DropDownListFor(d => d.Data.Business.CountryId, new SelectList(ViewBag.CountryId ?? null, "Value", "Text"), "--Select Country --", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="step" style="border:0;">
+                    <div class="row">
+                        <div class="col-lg-12 text-left">
+                            <h3 class="white-text">Admin Login Information</h3>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-asterisk"></i></span>
+                                @Html.EditorFor(d => d.Data.Employee.FirstName, new { htmlAttributes = new { @class = "form-control", @placeholder = "First Name" } })
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-asterisk"></i></span>
+                                @Html.EditorFor(d => d.Data.Employee.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Last Name" } })
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                @Html.EditorFor(d => d.Data.Employee.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Login Email Id" } })
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                @Html.EditorFor(d => d.Data.Employee.Password, new { htmlAttributes = new { @class = "form-control", @type = "password", @placeholder = "Password" } })
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                @Html.EditorFor(d => d.Data.Employee.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", @type = "password", @placeholder = "Confirm Password" } })
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+                                @Html.EditorFor(d => d.Data.Employee.PhoneNumber, new { htmlAttributes = new { @class = "form-control", @placeholder = "Contact Number" } })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="step" style="border:0;">
+                    <div class="row">
+                        <div class="col-lg-12 text-left">
+                            <h3 class="white-text">Account Setup Information</h3>
+                        </div>
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-asterisk"></i></span>
+                                @Html.DropDownListFor(d => d.Data.Business.TimezoneId, new SelectList(ViewBag.TimezoneId, "Value", "Text"), "--Select Timezone --", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-asterisk"></i></span>
+                                @Html.DropDownListFor(d => d.Data.Business.BusinessCategoryId, new SelectList(ViewBag.BusinessCategoryId, "Value", "Text", "Group.Name", -1), "--Select Category --", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-asterisk"></i></span>
+                                @Html.DropDownListFor(d => d.Data.Business.MembershipId, new SelectList(ViewBag.MembershipId, "Value", "Text"), "--Select Membership --", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">
+                                    @Html.CheckBoxFor(d => d.Data.Business.IsInternational, new { htmlAttributes = new { @type = "checkbox" } })
+                                </span>
+                                <div class="form-control"> Is International (check if internation.)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="action back btn btn-default">Back</a>
+                <a class="action next btn btn-default">Next</a>
+                <a class="action submit btn btn-success" onclick="onSubmit(this,'@Url.Action("Index", "Home", new { area = "" })');">Submit</a>
+            </div>
+        </div>
+    }
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            var current = 1;
+
+            widget = $(".step");
+            btnnext = $(".next");
+            btnback = $(".back");
+            btnsubmit = $(".submit");
+
+            // Init buttons and UI
+            widget.not(':eq(0)').hide();
+            hideButtons(current);
+            setProgress(current);
+
+            // Next button click action
+            btnnext.click(function () {
+                if (current < widget.length) {
+                    widget.show();
+                    widget.not(':eq(' + (current++) + ')').hide();
+                    setProgress(current);
+                }
+                hideButtons(current);
+            });
+            // Back button click action
+            btnback.click(function () {
+                if (current > 1) {
+                    current = current - 2;
+                    btnnext.trigger('click');
+                }
+                hideButtons(current);
+            });
+
+        });
+
+        // Change progress bar action
+        setProgress = function (currstep) {
+            var percent = parseFloat(100 / widget.length) * currstep;
+            percent = percent.toFixed();
+            $(".progress-bar")
+                .css("width", percent + "%")
+                .html(percent + "%");
+        }
+
+        // Hide buttons according to the current step
+        hideButtons = function (current) {
+            var limit = parseInt(widget.length);
+
+            $(".action").hide();
+
+            if (current < limit) btnnext.show(); if (current > 1) btnback.show();
+            if (current == limit) { btnnext.hide(); btnsubmit.show(); }
+        }
+    </script>
+}

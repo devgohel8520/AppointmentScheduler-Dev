@@ -1,0 +1,46 @@
+﻿@using App.Schedule.Domains.ViewModel;
+@model ServiceDataViewModel<LoginViewModel>
+
+@{
+    ViewBag.Title = "Admin Login";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        @Html.Partial("~/Views/SubViews/_Error.cshtml", Model)
+
+        @using (Ajax.BeginForm("Index", "Login", new AjaxOptions { }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="absolute-center is-login alert">
+                <div id="logo-container">Admin Login</div>
+                <div class="col-sm-12 col-md-10 col-md-offset-1">
+                    <div class="form-group input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        @Html.EditorFor(model => model.Data.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email Id" } })
+                    </div>
+                    <div class="form-group input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        @Html.EditorFor(model => model.Data.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Password", @type = "password" } })
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(mode => mode.Data.IsKeepLoggedIn, new { htmlAttributes = new { @type = "checkbox" }})  Keep me logged in
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-def btn-block btn-dark" onclick="onSubmit(this,'@Url.Action("Index","Dashboard")');">Login</button>
+                    </div>
+                    <div class="form-group text-center">
+                        <a href="@Url.Action("Index","Forgot")" class="btn btn-link">Forgot?</a> &nbsp; | &nbsp; <a href="@Url.Action("Index", "Register")" class="btn btn-link">Register</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="footer-bottom">
+        <div>
+            &copy; @DateTime.Now.Year. All right reserved by Appointment.
+        </div>
+    </div>
+</div>

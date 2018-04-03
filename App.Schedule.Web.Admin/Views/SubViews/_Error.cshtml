@@ -1,0 +1,17 @@
+﻿@using App.Schedule.Domains.ViewModel;
+@model ErrorViewModel
+
+@if (Model != null && Model.HasError)
+{
+    <div id="errorBox" class="alert alert-danger" role="alert">
+        <span id="err_title">@Model.Error</span>
+        @if (Model.HasMore)
+                {
+            <button data-toggle="collapse" data-target="#moreError">More</button>
+            <div id="moreError" class="collapse">
+                @Model.ErrorDescription
+            </div>
+        }
+    </div>
+}
+@Html.Partial("~/Views/SubViews/_ScriptError.cshtml")

@@ -1,0 +1,59 @@
+﻿@using App.Schedule.Domains.ViewModel;
+@model ResponseViewModel<ServiceLocationViewModel>
+
+@{
+    ViewBag.Title = "Service Location";
+    Layout = "~/Views/Shared/_AfterLoginMaster.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Service Location Setup</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        @Html.Partial("~/Views/SubViews/_ErrorView.cshtml", Model)
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <b>Remove Service Location</b>
+            </div>
+            @using (Ajax.BeginForm("delete", "servicelocation", new AjaxOptions { }))
+            {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(d => d.Data.BusinessId)
+            @Html.HiddenFor(d => d.Data.Id)
+                <div class="panel-body">
+                    <div class="tab-content" style="padding:0px 10px;">
+                        <div class="form-group">
+                            <div class="text-danger">Are you sure want to delete?</div>
+                        </div>
+                        <div class="row">
+                                <div class="form-group col-lg-6">
+                                    <label>Business Name</label>
+                                    @Html.EditorFor(d => d.Data.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Service Location Name" } })
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label>Description</label>
+                                    @Html.EditorFor(d => d.Data.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Location Description" } })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <input id="btnDelete" class="btn btn-danger btn-sm " type="button" value="Delete" onclick="onSubmit(this,'@Url.Action("index", "servicelocation", new { area = "admin" })')" />
+                            <input type="button" class="btn btn-default btn-sm" value="Back" onclick="@("window.location.href='" + @Url.Action("index", "servicelocation", new { area = "admin" }) + "'");" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

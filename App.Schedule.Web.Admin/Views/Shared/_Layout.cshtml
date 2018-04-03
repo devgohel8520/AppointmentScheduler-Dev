@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="@Url.Action("Index","Dashboard")" style="margin-top:-5px;"><img alt="Brand" src="~/Content/Images/logo.png" width="30"></a> <span class="navbar-brand-title">Appointment</span>
+            </div>
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    @if (HttpContext.Current.Request.Cookies["aappointment"] != null)
+                    {
+                        var adminCookie = HttpContext.Current.Request.Cookies["aappointment"];
+                        if (adminCookie != null)
+                        {
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user fa-fw"></i> @adminCookie.Values["aFirstName"]  @adminCookie.Values["aLastName"] <i class="fa fa-caret-down"></i>
+                    </a>
+                        }
+                        else
+                        {
+                            Response.Redirect("~/Login/Index");
+                        }
+                    }
+                    else
+                    {
+                        Response.Redirect("~/Login/Index");
+                    }
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href="@Url.Action("Index","AdminProfile")"><i class="fa fa-user fa-fw"></i> Profile</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="@Url.Action("Logout","Dashboard")"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        @if (Session["HomeLink"] != null)
+                        {
+                        <li class="active"><a href="#"><b>@Session["HomeLink"]</b></a></li>
+                        }
+                        <li>
+                            <a href="@Url.Action("Index","Dashboard")"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index","Admin")"><i class="fa fa-user fa-fw"></i> Admins</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index","Country")"><i class="fa fa-globe fa-fw"></i> Countries</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index","Timezone")"><i class="fa fa-clock-o fa-fw"></i> Timezones</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index","Membership")"><i class="fa fa-book fa-fw"></i> Memberships</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index","BusinessCategory")"><i class="fa fa-bars fa-fw"></i> Business Categories</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div id="page-wrapper">
+            @RenderBody()
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/metismenu")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

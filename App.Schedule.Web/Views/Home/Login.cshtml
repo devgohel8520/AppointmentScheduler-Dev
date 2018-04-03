@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_NotAuthLayout.cshtml";
+}
+
+<div class="absolute-center is-login-box">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">User Login</h3>
+        </div>
+        <div class="panel-body">
+            <div class="list-group">
+                <a href="@Url.Action("Login","Home", new { area = "Admin" })" class="list-group-item">
+                    <i class="fa fa-user fa-fw"></i> Admin
+                    <span class="pull-right text-muted small">
+                        <em>Business</em>
+                    </span>
+                </a>
+                <a href="@Url.Action("Login","Home", new { area = "Employee" } )" class="list-group-item">
+                    <i class="fa fa-user fa-fw"></i> Employee
+                    <span class="pull-right text-muted small">
+                        <em>Business</em>
+                    </span>
+                </a>
+                <a href="@Url.Action("Login","Home", new { area = "Customer" })" class="list-group-item">
+                    <i class="fa fa-user fa-fw"></i> Customer
+                    <span class="pull-right text-muted small">
+                        <em>Business</em>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

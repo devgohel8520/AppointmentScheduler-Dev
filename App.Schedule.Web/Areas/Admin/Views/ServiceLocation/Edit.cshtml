@@ -1,0 +1,89 @@
+﻿@using App.Schedule.Domains.ViewModel;
+@model ResponseViewModel<ServiceLocationViewModel>
+
+@{
+    ViewBag.Title = "Service Location";
+    Layout = "~/Views/Shared/_AfterLoginMaster.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Service Location Setup</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        @Html.Partial("~/Views/SubViews/_ErrorView.cshtml", Model)
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <b>Update Service Location</b>
+            </div>
+            @using (Ajax.BeginForm("edit", "servicelocation", new AjaxOptions { }))
+            {
+                <div class="panel-body">
+                    @if (Model == null & Model.Data == null)
+                     {
+                        <text>Please try again later.</text>
+                        return;
+                    }
+                    <div class="tab-content" style="padding:0px 10px;">
+                        <div class="row">
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(d => d.Data.Id)
+                            @Html.HiddenFor(d => d.Data.BusinessId)
+                            <div class="form-group col-lg-6">
+                                <label>Business Name</label>
+                                @Html.EditorFor(d => d.Data.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Service Location Name" } })
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label>Description</label>
+                                @Html.EditorFor(d => d.Data.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Location Description" } })
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label>Address 1</label>
+                                @Html.EditorFor(d => d.Data.Add1, new { htmlAttributes = new { @class = "form-control", @placeholder = "Address 1" } })
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label>Address 2</label>
+                                @Html.EditorFor(d => d.Data.Add2, new { htmlAttributes = new { @class = "form-control", @placeholder = "Address 2" } })
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label>City</label>
+                                @Html.EditorFor(d => d.Data.City, new { htmlAttributes = new { @class = "form-control", @placeholder = "City" } })
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label>State</label>
+                                @Html.EditorFor(d => d.Data.State, new { htmlAttributes = new { @class = "form-control", @placeholder = "State" } })
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label>Zip</label>
+                                @Html.EditorFor(d => d.Data.Zip, new { htmlAttributes = new { @class = "form-control", @placeholder = "Zip" } })
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label>Country</label>
+                                @Html.DropDownListFor(d => d.Data.CountryId, new SelectList(ViewBag.CountryId ?? null, "Value", "Text"), "-- Select Country --", new { @class = "form-control" })
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label>Timezone</label>
+                                @Html.DropDownListFor(d => d.Data.TimezoneId, new SelectList(ViewBag.TimezoneId, "Value", "Text"), "-- Select Timezone --", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <input id="btnUpdate" class="btn btn-info btn-sm " type="button" value="Update" onclick="onSubmit(this,'@Url.Action("index", "servicelocation", new { area = "admin" })')" />
+                            <input type="button" class="btn btn-default btn-sm" value="Back" onclick="@("window.location.href='" + @Url.Action("index", "servicelocation", new { area = "admin" }) + "'");" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

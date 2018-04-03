@@ -1,0 +1,60 @@
+﻿@using App.Schedule.Domains.ViewModel;
+@model ServiceDataViewModel<TimezoneViewModel>
+@{
+    ViewBag.Title = "New Timezone";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Timezone</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        @Html.Partial("~/Views/SubViews/_Error.cshtml", Model)
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        @using (Ajax.BeginForm("Create", new AjaxOptions { }))
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-clock-o fa-fw"></i> New Timezone
+                </div>
+                <div class="panel-body">
+
+                    @Html.AntiForgeryToken()
+                    <div class="form-group col-lg-6">
+                        <label>Title</label>
+                        @Html.EditorFor(model => model.Data.Title, new { htmlAttributes = new { @class = "form-control", placeholder = "Title" } })
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>UTC Offset</label>
+                        @Html.EditorFor(model => model.Data.UtcOffset, new { htmlAttributes = new { @class = "form-control", placeholder = "UtC offset" } })
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Country</label>
+                        @Html.DropDownListFor(model => model.Data.CountryId, new SelectList(ViewBag.CountryId, "Value", "Text"), "--Select Country--", new { @class = "form-control" })
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <label>
+                            @Html.CheckBoxFor(model => model.Data.IsDST, new { htmlAttributes = new { @class = "form-control" } })
+                            Has DST?
+                        </label>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-12">
+                                <input id="btnSave" class="btn btn-info btn-sm " type="button" value="Save" onclick="onSubmit(this,'@Url.Action("Index", "Timezone")');" />
+                                <input type="button" class="btn btn-default btn-sm" value="Back" onclick="@("window.location.href='" + @Url.Action("Index", "Timezone") + "'");" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

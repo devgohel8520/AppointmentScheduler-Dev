@@ -1,0 +1,87 @@
+﻿@using App.Schedule.Domains.ViewModel;
+@model ServiceDataViewModel<AdministratorViewModel>
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Profile</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        @Html.Partial("~/Views/SubViews/_Error.cshtml", Model)
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        @Html.Partial("~/Views/SubViews/_ScriptError.cshtml")
+        @using (Ajax.BeginForm("Edit", new AjaxOptions { }))
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-user fa-fw"></i> Admin Profile
+                </div>
+                <div class="panel-body">
+
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Data.Id)
+                    @Html.HiddenFor(model => model.Data.AdministratorId)
+                    <div class="form-group col-lg-6">
+                        <label>FirstName</label>
+                        <div class="form-control text-overflow">
+                            @Model.Data.FirstName
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Last Name</label>
+                        <div class="form-control text-overflow">
+                            @Model.Data.LastName
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Contact Number</label>
+                        <div class="form-control text-overflow">
+                            @Model.Data.ContactNumber
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Email</label>
+                        <div class="form-control text-overflow">
+                            @Model.Data.Email
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <label>Token</label>
+                        <div class="form-control text-overflow">
+                            @ViewBag.Token
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Admin</label>
+                        <div class="form-control text-overflow">
+                            @Model.Data.IsAdmin
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Status</label>
+                        <div class="form-control text-overflow">
+                            @Model.Data.IsActive
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-12">
+                                <input id="btnUpdate" type="button" class="btn btn-info btn-sm" value="Update" onclick="@("window.location.href='" + @Url.Action("Edit", "Admin", new { Id = Model.Data.Id }) + "'");" />
+                                <input id="buttonBack" type="button" class="btn btn-default btn-sm" value="Back" onclick="@("window.location.href='" + @Url.Action("Index", "Dashboard") + "'");" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

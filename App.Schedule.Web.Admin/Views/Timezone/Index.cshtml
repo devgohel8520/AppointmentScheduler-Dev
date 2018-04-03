@@ -1,0 +1,111 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using App.Schedule.Domains.ViewModel;
+@model ServiceDataViewModel<IPagedList<TimezoneViewModel>>
+
+@{
+    ViewBag.Title = "Timezones";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Timezones</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        @Html.Partial("~/Views/SubViews/_Error.cshtml", Model)
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-clock-o fa-fw"></i> Timezone List
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <a onclick="@("window.location.href='" + @Url.Action("Create") + "'");" class="btn btn-info btn-xs">
+                            <span class="fa fa-plus"></span> Add New
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                @if (Model.Data == null)
+                {
+                    <div class="alert alert-danger">No records! Click to add new <a href="#" class="pull-right">+ Add</a></div>
+                }
+                else
+                {
+                    <div class="form-group input-group input-group-sm">
+                        <input type="text" class="form-control" id="searchKeyword" value="@ViewBag.search" placeholder="Search here" />
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Index")?search=' + $('#searchKeyword').val()">
+                                <i class="glyphicon glyphicon-search"></i>
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-striped table-hover sortable" cellspacing="0" cellpadding="0">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Title
+                                    </th>
+                                    <th>
+                                        UtcOffSet
+                                    </th>
+                                    <th>
+                                        IsDST
+                                    </th>
+                                    <th>
+                                        Country
+                                    </th>
+                                    <th class="text-right">
+                                        Action
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Data)
+                                {
+                                    <tr>
+                                        @Html.HiddenFor(modelItem => item.Id)
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Title)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.UtcOffset)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.IsDST)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CountryId)
+                                        </td>
+                                        <td class="text-right">
+                                            <a title="Update" onclick="@("window.location.href='" + @Url.Action("Edit", new { Id = item.Id }) + "'");" class="btn btn-default btn-xs">
+                                                <span class="fa fa-pencil"></span>
+                                            </a>
+                                            <a title="Delete" onclick="@("window.location.href='" + @Url.Action("Delete",new { Id = item.Id }) + "'");" class="btn btn-xs btn-default">
+                                                <span class="fa fa-trash"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr />
+                    <div>
+                        <span class="pull-right">
+                            @Html.PagedListPager(Model.Data, page => Url.Action("Index", new { page }))
+                        </span>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

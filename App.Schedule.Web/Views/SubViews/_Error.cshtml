@@ -1,0 +1,11 @@
+﻿@using App.Schedule.Domains.ViewModel;
+@model ResponseViewModel
+
+@if (Model != null && Model.Status)
+{
+    <div id="errorBox" class="alert alert-danger alert-dismissable fade in" role="alert">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <span id="err_title">@Model.Message</span>
+    </div>
+}
+@Html.Partial("~/Views/SubViews/_ScriptError.cshtml")

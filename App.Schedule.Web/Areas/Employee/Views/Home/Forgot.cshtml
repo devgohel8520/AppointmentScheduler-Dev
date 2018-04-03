@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Employee Forgot Password";
+    Layout = "~/Views/Shared/_NotAuthLayout.cshtml";
+}
+<div class="absolute-center is-forgot">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Forgot Password</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                @Html.Editor("Email", new { htmlAttributes = new { @class = "form-control", @placeholder = "Email Id" } })
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-def btn-block bga-secondary" onclick="onSubmit(this,'@Url.Action("Login", "Home", new { area = "Admin" })');">Submit</button>
+            </div>
+            <div class="form-group text-center">
+                <a href="@Url.Action("Login","Home", new { area = "Admin" })" class="btn btn-link">Back</a>
+            </div>
+        </div>
+    </div>
+</div>
+

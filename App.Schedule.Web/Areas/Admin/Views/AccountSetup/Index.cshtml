@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "Account Setup";
+    Layout = "~/Views/Shared/_AfterLoginMaster.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12">
+        @Html.Partial("~/Views/SubViews/_Error.cshtml", null)
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Account Setup</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col-lg-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Account Setup
+                        </div>
+                        <div class="panel-body">
+                            <div class="list-group">
+                                <a href="@Url.Action("index","account",new { area="admin"})" class="list-group-item">
+                                    <i class="fa fa-user fa-fw"></i> Profile
+                                    <span class="pull-right text-muted small">
+                                        <em>setup</em>
+                                    </span>
+                                </a>
+                                <a href="@Url.Action("index","membership",new { area = "admin" })" class="list-group-item">
+                                    <i class="fa fa-user-md fa-fw"></i> Membership
+                                    <span class="pull-right text-muted small">
+                                        <em>setup</em>
+                                    </span>
+                                </a>
+                                <a href="@Url.Action("index","businessadmin",new { area = "admin" })" class="list-group-item">
+                                    <i class="fa fa-user-times fa-fw"></i> Adminstrator
+                                    <span class="pull-right text-muted small">
+                                        <em>setup</em>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Business Setup
+                    </div>
+                    <div class="panel-body">
+                        <div class="list-group">
+                            <a href="@Url.Action("index","hour",new { area = "admin" })" class="list-group-item">
+                                <i class="fa fa-calendar fa-fw"></i> Hour
+                                <span class="pull-right text-muted small">
+                                    <em>setup</em>
+                                </span>
+                            </a>
+                            <a href="@Url.Action("index","holiday",new { area = "admin" })" class="list-group-item">
+                                <i class="fa fa-clock-o fa-fw"></i> Holiday
+                                <span class="pull-right text-muted small">
+                                    <em>setup</em>
+                                </span>
+                            </a>
+                            <a href="@Url.Action("index","servicelocation",new { area = "admin" })" class="list-group-item">
+                                <i class="fa fa-globe fa-fw"></i> Service Location
+                                <span class="pull-right text-muted small">
+                                    <em>setup</em>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Others Setup
+                    </div>
+                    <div class="panel-body">
+                        <div class="list-group">
+                            <a href="@Url.Action("index","businessoffer",new { area = "admin" })" class="list-group-item">
+                                <i class="fa fa-text-height fa-fw"></i>  Custom Offer
+                                <span class="pull-right text-muted small">
+                                    <em>setup</em>
+                                </span>
+                            </a>
+                            <a href="@Url.Action("index","employee",new { area = "admin" })" class="list-group-item">
+                                <i class="fa fa-users fa-fw"></i> Employee
+                                <span class="pull-right text-muted small">
+                                    <em>setup</em>
+                                </span>
+                            </a>
+                            <a href="@Url.Action("index","customer",new { area = "admin" })" class="list-group-item">
+                                <i class="fa fa-users fa-fw"></i> Customer
+                                <span class="pull-right text-muted small">
+                                    <em>setup</em>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

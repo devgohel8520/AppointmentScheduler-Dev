@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="@Url.Action("Index","Dashboard")" style="margin-top:-5px;"><img alt="Brand" src="~/Content/Images/logo.png" width="30"></a> <span class="navbar-brand-title">Appointment</span>
+            </div>
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    @if (HttpContext.Current.Request.Cookies["aadminappointment"] != null)
+                    {
+                        var adminCookie = HttpContext.Current.Request.Cookies["aadminappointment"];
+                        if (adminCookie != null)
+                        {
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-user fa-fw"></i> @adminCookie.Values["aFirstName"]  @adminCookie.Values["aLastName"] <i class="fa fa-caret-down"></i>
+                            </a>
+                        }
+                        else
+                        {
+                            Response.Redirect("~/Admin/Dashboard/Index");
+                        }
+                    }
+                    else
+                    {
+                        Response.Redirect("~/Admin/Home/Login");
+                    }
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href="@Url.Action("Index","Account", new { area = "Admin" })"><i class="fa fa-user fa-fw"></i> Profile</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="@Url.Action("Logout","Dashboard", new { area = "Admin"})"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a href="@Url.Action("Index","Dashboard", new { area="Admin" })"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>
+                        <li>
+                            <a> <i class="fa fa-bars fa-fw"></i> Profile Setup <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="@Url.Action("Index","AccountSetup", new { area="Admin" })">Account</a></li>
+                                <li><a href="@Url.Action("Index","account", new { area="Admin" })">Profile</a></li>
+                                <li><a href="@Url.Action("Index","membership", new { area="Admin" })">Membership</a></li>
+                                <li><a href="@Url.Action("Index","businessadmin", new { area="Admin" })">Administrator</a></li>
+                                <li><a href="@Url.Action("Index","hour", new { area="Admin" })">Business Hour</a></li>
+                                <li><a href="@Url.Action("Index","holiday", new { area="Admin" })">Business Holiday</a></li>
+                                <li><a href="@Url.Action("Index","servicelocation", new { area="Admin" })">Service Location</a></li>
+                                <li><a href="@Url.Action("Index","BusinessOffer", new { area="Admin" })">Custom Offer</a></li>
+                                <li><a href="@Url.Action("Index","Employee", new { area="Admin" })">Employee</a></li>
+                                <li><a href="@Url.Action("Index","Customer", new { area="Admin" })">Customer</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a><i class="fa fa-calendar fa-fw"></i> Calendar <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li class="disabled"><a href="@Url.Action("Index","Calendar", new { area="Admin" })">View</a></li>
+                                <li class="disabled"><a href="#">Month</a></li>
+                                <li class="disabled"><a href="#">Timeline</a></li>
+                                <li class="disabled"><a href="#">Reports</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a><i class="fa fa-book fa-fw"></i> Appointments <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li class="disabled"><a href="@Url.Action("Index","Appointment",new { area="Admin" })">View</a></li>
+                                <li class="disabled"><a href="#">Search</a></li>
+                                <li class="disabled"><a href="#">New</a></li>
+                                <li class="disabled"><a href="#">Block</a></li>
+                                <li class="disabled"><a href="#">Close</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div id="page-wrapper">
+            @RenderBody()
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/metismenu")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

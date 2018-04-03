@@ -1,0 +1,62 @@
+﻿@using App.Schedule.Domains.ViewModel;
+@model ServiceDataViewModel<BusinessCategoryViewModel>
+@{
+    ViewBag.Title = "Deactive Business Sub Category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Business Sub Category</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        @Html.Partial("~/Views/SubViews/_Error.cshtml", Model)
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        @using (Ajax.BeginForm("SubDeactive", new AjaxOptions { }))
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-book fa-fw"></i> Deactive Sub Category
+                </div>
+                <div class="panel-body">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(d => d.Data.Id)
+                    @Html.HiddenFor(d => d.Data.ParentId)
+                    @Html.HiddenFor(d => d.Data.AdministratorId)
+                    <div class="form-group col-lg-6">
+                        <label>Title</label>
+                        <div class="form-control text-overflow">
+                            @Model.Data.Name
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Membership Price</label>
+                        <div class="form-control text-overflow">
+                            @Model.Data.Type
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <label>
+                            @Html.CheckBoxFor(model => model.Data.IsActive, new { htmlAttributes = new { @class = "form-control" } })
+                            is Active?
+                        </label>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-12">
+                                <input id="btnDeactive" class="btn btn-danger btn-sm " type="button" value="Deactive" onclick="onSubmit(this,'@Url.Action("SubIndex", "BusinessCategory", new { id = Model.Data.ParentId })');" />
+                                <input type="button" class="btn btn-default btn-sm" value="Back" onclick="@("window.location.href='" + @Url.Action("SubIndex", "BusinessCategory", new { id = Model.Data.ParentId }) + "'");" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

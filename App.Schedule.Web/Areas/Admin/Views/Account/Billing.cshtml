@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Billing";
+    Layout = "~/Views/Shared/_AfterLoginMaster.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Account Profile Setup</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        @Html.Partial("~/Views/SubViews/_ErrorView.cshtml", null)
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <ul class="nav nav-tabs">
+            <li><a href="@Url.Action("index", "account", new { area = "admin" })">Profile</a></li>
+            <li><a href="@Url.Action("administrator", "account", new { area = "admin" })">Administrator</a></li>
+            <li><a href="@Url.Action("membership", "account", new { area = "admin" })">Membership</a></li>
+            <li class="active"><a href="@Url.Action("billing", "account", new { area = "admin" })">Billing</a></li>
+        </ul>
+        <div class="panel panel-default" style="border-top:0;">
+            <div class="panel-body">
+                <div class="tab-pane">
+                    <div class="row">
+                        <div id="home" class="tab-pane fade in active col-lg-12">
+                            <div class="alert alert-success margin10">We accept credit and debit card.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

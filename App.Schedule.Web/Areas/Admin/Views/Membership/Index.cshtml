@@ -1,0 +1,70 @@
+﻿@using App.Schedule.Domains.ViewModel;
+@model ResponseViewModel<MembershipViewModel>
+
+@{
+    ViewBag.Title = "Membership";
+    Layout = "~/Views/Shared/_AfterLoginMaster.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Membership Setup</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        @Html.Partial("~/Views/SubViews/_ErrorView.cshtml", Model)
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <b>Membership</b>
+            </div>
+            <div class="panel-body">
+                @if (Model == null & Model.Data == null)
+                {
+                    <text>Please try again later.</text>
+                    return;
+                }
+                <div class="tab-pane">
+                    <div class="row">
+                        <div class="form-group col-lg-6">
+                            <label>Name</label>
+                            <div class="form-control">
+                                @Model.Data.Title
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label>About</label>
+                            <div class="form-control text-overflow">
+                                @Model.Data.Description
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label>Benifits</label>
+                            <div class="form-control">
+                                @Model.Data.Benifits
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label>Unlimited</label>
+                            <div class="form-control">
+                                @{var isUnlimited = Model.Data.IsUnlimited ? "Yes" : "No";}
+                                @isUnlimited
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <input id="btnUpdate" class="btn btn-info btn-sm " type="button" value="Update" onclick="@("window.location.href='" + @Url.Action("edit","membership",new { area="admin"}) + "'");" />
+                        <input type="button" class="btn btn-default btn-sm" value="Back" onclick="@("window.location.href='" + @Url.Action("index","accountsetup",new { area="admin"}) + "'");" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

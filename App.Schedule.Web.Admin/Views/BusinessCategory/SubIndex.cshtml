@@ -1,0 +1,130 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using App.Schedule.Domains.ViewModel;
+@model ServiceDataViewModel<IPagedList<BusinessCategoryViewModel>>
+@{
+    ViewBag.Title = "Business Sub Category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Business Category</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        @Html.Partial("~/Views/SubViews/_Error.cshtml", Model)
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-bars fa-fw"></i> Category List
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <a onclick="@("window.location.href='" + @Url.Action("SubCreate", new { id = ViewBag.ParentId}) + "'");" class="btn btn-info btn-xs">
+                            <span class="glyphicon glyphicon-plus"></span> Add New
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                @if (Model.Data == null)
+                {
+                    <div class="alert alert-danger">No records! Click to add new <a href="#" class="pull-right">+ Add</a></div>
+                }
+                else
+                {
+                    <div class="form-group input-group input-group-sm">
+                        <input type="text" class="form-control" id="searchKeyword" value="@ViewBag.search" placeholder="Search here" />
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("SubIndex")?search=' + $('#searchKeyword').val()">
+                                <i class="glyphicon glyphicon-search"></i>
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-striped table-hover sortable" cellspacing="0" cellpadding="0">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Image
+                                    </th>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Order No.
+                                    </th>
+                                    <th>
+                                        Type
+                                    </th>
+                                    <th>
+                                        IsActive
+                                    </th>
+                                    <th class="text-right">
+                                        Action
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Data)
+                                {
+                                    <tr>
+                                        @Html.HiddenFor(modelItem => item.Id)
+                                        <td>
+                                            @if (!string.IsNullOrEmpty(item.PictureLink))
+                                            {
+                                                <img id="categoryImage" class="img-circle" src="@item.PictureLink" width="25" height="25" />
+                                            }
+                                            else
+                                            {
+                                                <img id="categoryImage" class="img-circle" src="~/Content/Images/NoImageThumb.gif" width="25" height="25" />
+                                            }
+                                        </td>
+                                        <td class="row-bg">
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.OrderNumber)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Type)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.IsActive)
+                                        </td>
+                                        <td class="text-right">
+                                            <a title="Update" onclick="@("window.location.href='" + @Url.Action("SubEdit", new { Id = item.Id }) + "'");" class="btn btn-default btn-xs">
+                                                <span class="fa fa-pencil"></span>
+                                            </a>
+                                            <a title="Change Status" onclick="@("window.location.href='" + @Url.Action("SubDeactive",new { Id = item.Id }) + "'");" class="btn btn-xs btn-default">
+                                                <span class="fa fa-minus-square"></span>
+                                            </a>
+                                            <a title="Delete" onclick="@("window.location.href='" + @Url.Action("SubDelete",new { Id = item.Id }) + "'");" class="btn btn-xs btn-default">
+                                                <span class="fa fa-trash"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr />
+                    <div>
+                        <span class="pull-left">
+                            <a onclick="@("window.location.href='" + @Url.Action("Index", "BusinessCategory") + "'");" class="btn btn-default btn-sm">
+                                Back
+                            </a>
+                        </span>
+                        <span class="pull-right">
+                            @Html.PagedListPager(Model.Data, page => Url.Action("Index", new { page }))
+                        </span>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

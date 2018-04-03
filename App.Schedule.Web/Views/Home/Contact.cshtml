@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row bg-green-ap padAll">
+    <div class="container">
+        <h2 class="white-text">Contact Us</h2>
+        <h4 class="pad20 white-grey-text">
+            For general inquiries about AppointmentQuest appointment services, product specifications, job applications, press releases and company information please mail your requests to:
+        </h4>
+        <h4 class="pad20 white-grey-text">
+            Ap...<br/>
+            P.O. Box 123<br/>
+            Bairut, BA 4564-23113<br/>
+            Lebanon
+        </h4>
+    </div>
+</div>
+
+<div class="jumbotron bga-transparent">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <blockquote>
+                    We respond to all inquiries promptly. Most questions are replied to the same business day.
+                </blockquote>
+            </div>
+        </div>
+    </div>
+    <div class="container margin20">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h3>You can send us your query. Please fill up the form.</h3>
+                        <h5>
+                            Form...
+                        </h5>
+                        <div class="pad20">
+                            <a class="btn btn-default" href="@Url.Action("Login","Home", new { area = "Admin" })">Submit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="margin20">
+    <div class="container">
+        &copy; @DateTime.Now.Year.ToString() Copyright Ap
+        <div class="pull-right">
+            <a href="#!">Privacy</a> &nbsp; | &nbsp;
+            <a href="#!">Terms &amp; Conditions.</a>
+        </div>
+    </div>
+</div>

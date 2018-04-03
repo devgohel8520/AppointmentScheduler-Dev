@@ -1,0 +1,107 @@
+﻿@using App.Schedule.Domains.ViewModel;
+@model ServiceDataViewModel<MembershipViewModel>
+@{
+    ViewBag.Title = "Delete Membership";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Membership</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        @Html.Partial("~/Views/SubViews/_Error.cshtml", Model)
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        @using (Ajax.BeginForm("Delete", new AjaxOptions { }))
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-book fa-fw"></i> Delete Membership
+                </div>
+                <div class="panel-body">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Data.Id)
+                    <div class="col-lg-12">
+                        <div class="text-danger">
+                            Are you sure want to remove?
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Title</label>
+                        <div class="form-control text-overflow">
+                            @Model.Data.Title
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Membership Price</label>
+                        <div class="form-control text-overflow">
+                            @Model.Data.Price
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Total Customer Allowed</label>
+                        <div class="form-control text-overflow">
+                            @Model.Data.TotalCustomer
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Total Employee</label>
+                        <div class="form-control text-overflow">
+                            @Model.Data.TotalEmployee
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Total Location</label>
+                        <div class="form-control text-overflow">
+                            @Model.Data.TotalLocation
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Total Offers</label>
+                        <div class="form-control text-overflow">
+                            @Model.Data.TotalOffers
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Benifits</label>
+                        <div class="form-control text-overflow">
+                            @Model.Data.Benifits
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Description</label>
+                        <div class="form-control text-overflow">
+                            @Model.Data.Description
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Description</label>
+                        <div class="form-control text-overflow">
+                            @Model.Data.IsUnlimited
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Description</label>
+                        <div class="form-control text-overflow">
+                            @Model.Data.IsActive
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-12">
+                                <input id="btnDelete" class="btn btn-danger btn-sm " type="button" value="Delete" onclick="onSubmit(this,'@Url.Action("Index", "Membership")');" />
+                                <input type="button" class="btn btn-default btn-sm" value="Back" onclick="@("window.location.href='" + @Url.Action("Index", "Membership") + "'");" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

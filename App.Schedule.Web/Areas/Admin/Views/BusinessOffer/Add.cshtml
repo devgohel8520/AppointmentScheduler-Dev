@@ -1,0 +1,81 @@
+﻿@using App.Schedule.Domains.ViewModel;
+@model ResponseViewModel<BusinessOfferViewModel>
+
+@{
+    ViewBag.Title = "New Business Offer";
+    Layout = "~/Views/Shared/_AfterLoginMaster.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Business Offer Setup</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        @Html.Partial("~/Views/SubViews/_ErrorView.cshtml", Model)
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <b>Add Business Offer</b>
+            </div>
+            @using (Ajax.BeginForm("add", "businessoffer", new AjaxOptions { }))
+            {
+                <div class="panel-body">
+                    @if (Model == null & Model.Data == null)
+                    {
+                        <text>Please try again later.</text>
+                        return;
+                    }
+                    <div class="tab-content" style="padding:0px 10px;">
+                        <div class="row">
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(d => d.Data.BusinessEmployeeId)
+                            <div class="form-group col-lg-6">
+                                <label>Name</label>
+                                @Html.EditorFor(d => d.Data.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Business Offer Name" } })
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label>Code</label>
+                                @Html.EditorFor(d => d.Data.Code, new { htmlAttributes = new { @class = "form-control", @placeholder = "Offer Code" } })
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label>Valid From</label>
+                                <div class="input-group">
+                                    @Html.EditorFor(d => d.Data.ValidFrom, new { htmlAttributes = new { @class = "form-control", @placeholder = "mm/dd/yyyy", @type = "date" } })
+                                    <span class="input-group-addon">
+                                        <small>MM/DD/YYYY</small>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label>Valid To</label>
+                                <div class="input-group">
+                                    @Html.EditorFor(d => d.Data.ValidTo, new { htmlAttributes = new { @class = "form-control", @placeholder = "mm/dd/yyyy", @type = "date" } })
+                                    <span class="input-group-addon">
+                                        <small>MM/DD/YYYY</small>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <label>Description</label>
+                                @Html.TextAreaFor(d => d.Data.Description, new { @class = "form-control textarea-des", rows = 4, @placeholder = "Type offer description here..." })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <input id="btnSave" class="btn btn-info btn-sm " type="button" value="Save" onclick="onSubmit(this,'@Url.Action("index", "businessoffer", new { area = "admin" })')" />
+                            <input type="button" class="btn btn-default btn-sm" value="Back" onclick="@("window.location.href='" + @Url.Action("index", "businessoffer", new { area = "admin" }) + "'");" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
